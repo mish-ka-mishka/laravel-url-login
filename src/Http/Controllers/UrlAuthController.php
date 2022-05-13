@@ -4,6 +4,7 @@ namespace UrlLogin\Http\Controllers;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use UrlLogin\Contracts\AuthenticatableViaUrl;
