@@ -9,7 +9,7 @@ class UrlLoginServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/url-login.php', 'url-login.php');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/url-login.php', 'url-login');
     }
 
     public function boot()
@@ -20,7 +20,6 @@ class UrlLoginServiceProvider extends ServiceProvider
 
         Auth::provider('url_login_eloquent', function ($app, array $config) {
             return new UrlLoginEloquentUserProvider(
-                $config['url-login']['auth_token_hash'],
                 $this->app['hash'],
                 $config['model']
             );

@@ -13,21 +13,12 @@ use UrlLogin\Contracts\AuthenticatableViaUrl;
 
 class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserProvider
 {
-    private string $authTokenHashKey;
-
-    public function __construct(string $authTokenKey, HasherContract $hasher, $model)
-    {
-        $this->authTokenHashKey = $authTokenKey;
-
-        parent::__construct($hasher, $model);
-    }
-
     public function retrieveByCredentials(array $credentials): ?AuthenticatableViaUrl
     {
         $credentials = array_filter(
             $credentials,
             function ($key) {
-                return !Str::contains($key, $this->authTokenHashKey);
+                return !Str::contains($key, config('url-login.model_parameters.auth_token_hash'));
             },
             ARRAY_FILTER_USE_KEY
         );
@@ -42,7 +33,7 @@ class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserP
         $query = $this->newModelQuery();
 
         foreach ($credentials as $key => $value) {
-            if (Str::contains($key, $this->authTokenHashKey)) {
+            if (Str::contains($key, config('url-login.model_parameters.auth_token_hash'))) {
                 continue;
             }
 
@@ -63,7 +54,7 @@ class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserP
      */
     public function validateCredentials(Authenticatable $user, array $credentials): bool
     {
-        $plain = $credentials[$this->authTokenHashKey];
+        $plain = $credentials[config('url-login.model_parameters.auth_token_hash')];
 
         // TODO validate expiration date
 
