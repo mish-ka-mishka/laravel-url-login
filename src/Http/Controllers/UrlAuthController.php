@@ -42,9 +42,7 @@ abstract class UrlAuthController extends Controller
         /** @var AuthenticatableViaUrl $user */
         $user = $this->getAuthGuard()->user();
 
-        $user->{config('url-login.model_parameters.auth_token_hash')} = null;
-        $user->{config('url-login.model_parameters.auth_token_expire')} = null;
-        $user->save();
+        $user->invalidateUrlAuthToken();
     }
 
     public function logout(Request $request)

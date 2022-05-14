@@ -10,4 +10,6 @@ interface AuthenticatableViaUrl extends Authenticatable
     public function getAuthTokenHash(): string;
 
     public function generateUrlAuthToken(): string;
+
+    public function invalidateUrlAuthToken(): bool;
 }

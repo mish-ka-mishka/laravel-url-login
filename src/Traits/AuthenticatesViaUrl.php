@@ -28,4 +28,12 @@ trait AuthenticatesViaUrl
 
         return $token;
     }
+
+    public function invalidateUrlAuthToken(): bool
+    {
+        $this->{config('url-login.model_parameters.auth_token_hash')} = null;
+        $this->{config('url-login.model_parameters.auth_token_expire')} = null;
+
+        return $this->save();
+    }
 }
