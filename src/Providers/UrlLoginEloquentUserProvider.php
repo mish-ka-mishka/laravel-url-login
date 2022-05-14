@@ -54,10 +54,14 @@ class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserP
      */
     public function validateCredentials(Authenticatable $user, array $credentials): bool
     {
+        $expire = $user->getAuthTokenExpire();
+
+        if (now() > $expire) {
+            return false;
+        }
+
         $plain = $credentials[config('url-login.model_parameters.auth_token_hash')];
 
-        // TODO validate expiration date
-
-        return $this->hasher->check($plain, $user->getAuthPassword());
+        return $this->hasher->check($plain, $user->getAuthTokenHash());
     }
 }

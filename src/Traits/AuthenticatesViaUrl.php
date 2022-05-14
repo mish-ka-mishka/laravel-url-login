@@ -2,6 +2,7 @@
 
 namespace UrlLogin\Traits;
 
+use DateTimeInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -11,11 +12,17 @@ trait AuthenticatesViaUrl
     public function initializeAuthenticatesViaUrl()
     {
         $this->hidden[] = config('url-login.model_parameters.auth_token_hash');
+        $this->casts[config('url-login.model_parameters.auth_token_expire')] = 'datetime';
     }
 
     public function getAuthTokenHash(): string
     {
         return $this->{config('url-login.model_parameters.auth_token_hash')};
+    }
+
+    public function getAuthTokenExpire(): DateTimeInterface
+    {
+        return $this->{config('url-login.model_parameters.auth_token_expire')};
     }
 
     public function generateUrlAuthToken(): string

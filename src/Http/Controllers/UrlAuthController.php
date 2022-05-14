@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use UrlLogin\Contracts\AuthenticatableViaUrl;
+use UrlLogin\Providers\UrlLoginEloquentUserProvider;
 
 abstract class UrlAuthController extends Controller
 {
