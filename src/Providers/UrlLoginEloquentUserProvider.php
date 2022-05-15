@@ -3,11 +3,10 @@
 namespace UrlLogin\Providers;
 
 use Closure;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\Str;
 use UrlLogin\Contracts\AuthenticatableViaUrl;
 
@@ -18,7 +17,7 @@ class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserP
         $credentials = array_filter(
             $credentials,
             function ($key) {
-                return !Str::contains($key, config('url-login.model_parameters.auth_token_hash'));
+                return ! Str::contains($key, config('url-login.model_parameters.auth_token_hash'));
             },
             ARRAY_FILTER_USE_KEY
         );

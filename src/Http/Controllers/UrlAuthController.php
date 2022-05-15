@@ -23,14 +23,16 @@ abstract class UrlAuthController extends Controller
         return Auth::guard($this->getAuthGuardName());
     }
 
-    protected function redirectAfterAuthenticated(Request $request) {}
+    protected function redirectAfterAuthenticated(Request $request)
+    {
+    }
 
     /**
      * @throws ValidationException
      */
     public function authenticate(Request $request, string $authId, string $authToken)
     {
-        if (!$this->getAuthGuard()->attempt([
+        if (! $this->getAuthGuard()->attempt([
             config('url-login.model_parameters.auth_id') => $authId,
             config('url-login.model_parameters.auth_token_hash') => $authToken,
         ], true)) {
