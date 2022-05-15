@@ -8,10 +8,14 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use UrlLogin\Contracts\AuthenticatableViaUrl;
-use UrlLogin\Providers\UrlLoginEloquentUserProvider;
 
 abstract class UrlAuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest:' . $this->getAuthGuardName())->only(['authenticate']);
+    }
+
     abstract protected function getAuthGuardName(): string;
 
     protected function getAuthGuard(): StatefulGuard
@@ -19,10 +23,7 @@ abstract class UrlAuthController extends Controller
         return Auth::guard($this->getAuthGuardName());
     }
 
-    public function __construct()
-    {
-        $this->middleware('guest:' . $this->getAuthGuardName())->only(['authenticate']);
-    }
+    protected function redirectAfterAuthenticated(Request $request) {}
 
     /**
      * @throws ValidationException
@@ -44,6 +45,8 @@ abstract class UrlAuthController extends Controller
         $user = $this->getAuthGuard()->user();
 
         $user->invalidateUrlAuthToken();
+
+        $this->redirectAfterAuthenticated();
     }
 
     public function logout(Request $request)
