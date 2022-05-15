@@ -7,6 +7,11 @@
             "UrlLogin\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "UrlLogin\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Michael",
@@ -26,6 +31,14 @@
 	    "illuminate/auth": "^7.0|^8.0|^9.0",
 	    "illuminate/support": "^7.0|^8.0|^9.0",
 	    "illuminate/validation": "^7.0|^8.0|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0|^6.23|^7.0",
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
 	"config": {
 		"sort-packages": true
