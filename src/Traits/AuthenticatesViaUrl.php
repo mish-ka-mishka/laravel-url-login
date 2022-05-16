@@ -30,7 +30,13 @@ trait AuthenticatesViaUrl
         $token = Str::random(config('url-login.auth_token_length'));
 
         $this->{config('url-login.model_parameters.auth_token_hash')} = Hash::make($token);
-        $this->{config('url-login.model_parameters.auth_token_expire')} = now()->addMinutes(config('url-login.model_parameters.auth_token_lifetime'));
+
+        if (config('url-login.auth_token_expire') === true) {
+            $this->{config('url-login.model_parameters.auth_token_expire')} = now()->addMinutes(config('url-login.model_parameters.auth_token_lifetime'));
+        } else {
+            $this->{config('url-login.model_parameters.auth_token_expire')} = null;
+        }
+
         $this->save();
 
         return $token;

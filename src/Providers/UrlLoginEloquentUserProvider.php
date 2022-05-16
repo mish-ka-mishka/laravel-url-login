@@ -55,7 +55,7 @@ class UrlLoginEloquentUserProvider extends EloquentUserProvider implements UserP
     {
         $expire = $user->getAuthTokenExpire();
 
-        if (now() > $expire) {
+        if ($expire !== null && now() > $expire) {
             return false;
         }
 
