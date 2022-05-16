@@ -7,7 +7,7 @@ use UrlLogin\Providers\UrlLoginServiceProvider;
 
 class TestCase extends Orchestra
 {
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             UrlLoginServiceProvider::class,
