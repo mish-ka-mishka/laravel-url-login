@@ -48,7 +48,7 @@ abstract class UrlAuthController extends Controller
 
         $user->invalidateUrlAuthToken();
 
-        $this->redirectAfterAuthenticated($request);
+        return $this->redirectAfterAuthenticated($request);
     }
 
     public function logout(Request $request)
