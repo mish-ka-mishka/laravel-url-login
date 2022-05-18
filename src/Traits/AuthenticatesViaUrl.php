@@ -20,6 +20,11 @@ trait AuthenticatesViaUrl
         return $this->{config('url-login.model_parameters.auth_token_hash')};
     }
 
+    public function getAuthPassword(): ?string
+    {
+        return $this->getAuthTokenHash();
+    }
+
     public function getAuthTokenExpire(): ?DateTimeInterface
     {
         return $this->{config('url-login.model_parameters.auth_token_expire')};
