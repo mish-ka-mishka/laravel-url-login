@@ -2,7 +2,6 @@
 
 namespace UrlLogin\Tests;
 
-use UrlLogin\Providers\UrlLoginEloquentUserProvider;
 use UrlLogin\Traits\AuthenticatesViaUrl;
 
 class AuthenticatesWithUrlTest extends TestCase

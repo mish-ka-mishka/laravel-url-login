@@ -2,7 +2,6 @@
 
 namespace UrlLogin\Models;
 
-use UrlLogin\Traits\HasPublicId;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use UrlLogin\Traits\HasPublicId;
 
 /**
  * @property int $id

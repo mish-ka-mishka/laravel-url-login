@@ -2,10 +2,10 @@
 
 namespace UrlLogin\Traits;
 
-use Illuminate\Support\Str;
-use UrlLogin\Models\UrlLoginToken;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use UrlLogin\Models\UrlLoginToken;
 
 trait AuthenticatesViaUrl
 {
