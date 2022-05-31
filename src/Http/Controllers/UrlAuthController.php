@@ -2,15 +2,18 @@
 
 namespace UrlLogin\Http\Controllers;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-use UrlLogin\Contracts\AuthenticatableViaUrl;
+use UrlLogin\Models\UrlLoginToken;
 
 abstract class UrlAuthController extends Controller
 {
+    protected const REMEMBER_AFTER_AUTHENTICATION = false;
+
     public function __construct()
     {
         $this->middleware('guest:' . $this->getAuthGuardName())->only(['authenticate']);
@@ -23,32 +26,26 @@ abstract class UrlAuthController extends Controller
         return Auth::guard($this->getAuthGuardName());
     }
 
-    protected function redirectAfterAuthenticated(Request $request)
+    protected function redirectAfterAuthenticated(Request $request, Authenticatable $user)
     {
+        return redirect()->intended();
     }
 
     /**
-     * @throws ValidationException
+     * @throws ModelNotFoundException
      */
     public function authenticate(Request $request, string $authId, string $authToken)
     {
-        if (! $this->getAuthGuard()->attempt([
-            config('url-login.model_parameters.auth_id') => $authId,
-            config('url-login.model_parameters.auth_token_hash') => $authToken,
-        ], true)) {
-            throw ValidationException::withMessages([
-                'form' => [__('auth.failed')],
-            ]);
-        }
+        $urlLoginToken = UrlLoginToken::retrieve($authId, $authToken);
+        $user = $urlLoginToken->tokenable;
+
+        $this->getAuthGuard()->login($user, self::REMEMBER_AFTER_AUTHENTICATION);
+
+        $urlLoginToken->consume($request);
 
         $request->session()->regenerate();
 
-        /** @var AuthenticatableViaUrl $user */
-        $user = $this->getAuthGuard()->user();
-
-        $user->invalidateUrlAuthToken();
-
-        return $this->redirectAfterAuthenticated($request);
+        return $this->redirectAfterAuthenticated($request, $user);
     }
 
     public function logout(Request $request)

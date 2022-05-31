@@ -2,7 +2,6 @@
 
 namespace UrlLogin\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class UrlLoginServiceProvider extends ServiceProvider
@@ -18,11 +17,6 @@ class UrlLoginServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/url-login.php' => config_path('url-login.php'),
         ], 'config');
 
-        Auth::provider('url_login_eloquent', function ($app, array $config) {
-            return new UrlLoginEloquentUserProvider(
-                $this->app['hash'],
-                $config['model']
-            );
-        });
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 }
