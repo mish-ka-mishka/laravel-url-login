@@ -1,7 +1,6 @@
 # Laravel url login
 
-This package extends Laravel’s EloquentUserProvider to support authentication with one-time secret url.
-
+This package enables support for authentication with one-time secret url.
 ## Installation
 
 Run the following command from your project directory to add the dependency:
