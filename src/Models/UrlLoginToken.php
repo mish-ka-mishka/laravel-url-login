@@ -66,7 +66,7 @@ class UrlLoginToken extends Model
             })
             ->firstOrFail();
 
-        if (!Hash::check($token, $urlLoginToken->token)) {
+        if (! Hash::check($token, $urlLoginToken->token)) {
             throw new ModelNotFoundException();
         }
 
