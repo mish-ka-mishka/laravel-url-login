@@ -55,7 +55,7 @@ class UrlLoginToken extends Model
      */
     protected static function retrieve(string $publicId, string $token): self
     {
-        return self::where('public_id', $publicId)
+        $urlLoginToken = self::where('public_id', $publicId)
             ->where('token', Hash::make($token))
             ->where(function (Builder $query) {
                 $query->whereDate('expires_at', '<', now());
@@ -65,6 +65,12 @@ class UrlLoginToken extends Model
                 }
             })
             ->firstOrFail();
+
+        if (!Hash::check($token, $urlLoginToken->token)) {
+            throw new ModelNotFoundException();
+        }
+
+        return $urlLoginToken;
     }
 
     public function consume(Request $request): bool
