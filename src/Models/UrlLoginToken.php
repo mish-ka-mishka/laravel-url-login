@@ -56,7 +56,6 @@ class UrlLoginToken extends Model
     protected static function retrieve(string $publicId, string $token): self
     {
         $urlLoginToken = self::where('public_id', $publicId)
-            ->where('token', Hash::make($token))
             ->where(function (Builder $query) {
                 $query->whereDate('expires_at', '<', now());
 
