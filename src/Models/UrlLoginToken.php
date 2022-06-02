@@ -57,7 +57,7 @@ class UrlLoginToken extends Model
     {
         $urlLoginToken = self::where('public_id', $publicId)
             ->where(function (Builder $query) {
-                $query->whereDate('expires_at', '<', now());
+                $query->where('expires_at', '>', now());
 
                 if (config('auth_token_expire') === false) {
                     $query->orWhereNull('expires_at');
