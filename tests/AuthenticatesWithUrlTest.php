@@ -2,13 +2,17 @@
 
 namespace UrlLogin\Tests;
 
+use Illuminate\Database\Eloquent\Model;
 use UrlLogin\Traits\AuthenticatesViaUrl;
 
 class AuthenticatesWithUrlTest extends TestCase
 {
     public function testCreateUrlLoginToken()
     {
-        $model = $this->getMockForTrait(AuthenticatesViaUrl::class, [], 'FakeClassName', false);
+        $model = new class extends Model {
+            use AuthenticatesViaUrl;
+        };
+
         $model->id = 1;
 
         $tokenInfo = $model->createUrlLoginToken();
