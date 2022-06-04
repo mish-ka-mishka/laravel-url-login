@@ -39,7 +39,7 @@ abstract class UrlAuthController extends Controller
         $urlLoginToken = UrlLoginToken::retrieve($authId, $authToken);
         $user = $urlLoginToken->tokenable;
 
-        $this->getAuthGuard()->login($user, self::REMEMBER_AFTER_AUTHENTICATION);
+        $this->getAuthGuard()->login($user, static::REMEMBER_AFTER_AUTHENTICATION);
 
         $urlLoginToken->consume($request);
 
