@@ -1,6 +1,6 @@
 {
     "name": "mkaverin/laravel-url-login",
-    "description": "This package extends Laravel’s EloquentUserProvider to support authentication with one-time secret url",
+    "description": "This package enables support for authentication with one-time secret url",
 	"homepage": "https://github.com/mish-ka-mishka/laravel-url-login",
     "autoload": {
         "psr-4": {
@@ -27,10 +27,12 @@
 	},
     "require": {
 	    "php": "^7.4|^8.0",
-	    "illuminate/contracts": "^8.0|^9.0",
 	    "illuminate/auth": "^8.0|^9.0",
+	    "illuminate/contracts": "^8.0|^9.0",
 	    "illuminate/support": "^8.0|^9.0",
-	    "illuminate/validation": "^8.0|^9.0"
+        "illuminate/database": "^8.0|^9.0",
+        "illuminate/http": "^8.0|^9.0",
+        "illuminate/routing": "^8.0|^9.0"
     },
     "require-dev": {
         "orchestra/testbench": "^5.0|^6.23|^7.0",

@@ -2,20 +2,18 @@
 
 namespace UrlLogin\Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Orchestra\Testbench\TestCase as Orchestra;
 use UrlLogin\Providers\UrlLoginServiceProvider;
 
 class TestCase extends Orchestra
 {
+    use DatabaseMigrations;
+
     protected function getPackageProviders($app): array
     {
         return [
             UrlLoginServiceProvider::class,
         ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('auth.providers.users.driver', 'url_login_eloquent');
     }
 }

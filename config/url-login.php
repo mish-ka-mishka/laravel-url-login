@@ -6,20 +6,6 @@
 
 return [
     /*-------------------------------------------------------------------------
-    | Model parameters names
-    |--------------------------------------------------------------------------
-    |
-    | Here you can specify the names of the parameters that are used
-    | for retrieving user from database and verifying it’s token
-    |
-    */
-    'model_parameters' => [
-        'auth_id' => 'auth_id',
-        'auth_token_hash' => 'auth_token_hash',
-        'auth_token_expire' => 'auth_token_expire',
-    ],
-
-    /*-------------------------------------------------------------------------
     | Auth token length
     |--------------------------------------------------------------------------
     |

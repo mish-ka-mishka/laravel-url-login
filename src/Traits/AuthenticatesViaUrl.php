@@ -2,56 +2,32 @@
 
 namespace UrlLogin\Traits;
 
-use DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use UrlLogin\Models\UrlLoginToken;
 
-/** @see \UrlLogin\Contracts\AuthenticatableViaUrl */
 trait AuthenticatesViaUrl
 {
-    public function initializeAuthenticatesViaUrl()
+    public function urlAuthTokens(): MorphMany
     {
-        $this->hidden[] = config('url-login.model_parameters.auth_token_hash');
-        $this->casts[config('url-login.model_parameters.auth_token_expire')] = 'datetime';
+        return $this->morphMany(UrlLoginToken::class, 'tokenable');
     }
 
-    public function getAuthTokenHash(): ?string
-    {
-        return $this->{config('url-login.model_parameters.auth_token_hash')};
-    }
-
-    public function getAuthPassword(): ?string
-    {
-        return $this->getAuthTokenHash();
-    }
-
-    public function getAuthTokenExpire(): ?DateTimeInterface
-    {
-        return $this->{config('url-login.model_parameters.auth_token_expire')};
-    }
-
-    public function generateUrlAuthToken(): string
+    public function createUrlLoginToken(): array
     {
         $token = Str::random(config('url-login.auth_token_length'));
 
-        $this->{config('url-login.model_parameters.auth_token_hash')} = Hash::make($token);
+        $urlLoginToken = new UrlLoginToken();
+        $urlLoginToken->tokenable()->associate($this);
+        $urlLoginToken->expires_at = now()->addMinutes(config('url-login.auth_token_lifetime'));
+        $urlLoginToken->token = Hash::make($token);
+        $urlLoginToken->save();
 
-        if (config('url-login.auth_token_expire') === true) {
-            $this->{config('url-login.model_parameters.auth_token_expire')} = now()->addMinutes(config('url-login.model_parameters.auth_token_lifetime'));
-        } else {
-            $this->{config('url-login.model_parameters.auth_token_expire')} = null;
-        }
-
-        $this->save();
-
-        return $token;
-    }
-
-    public function invalidateUrlAuthToken(): bool
-    {
-        $this->{config('url-login.model_parameters.auth_token_hash')} = null;
-        $this->{config('url-login.model_parameters.auth_token_expire')} = null;
-
-        return $this->save();
+        return [
+            'public_id' => $urlLoginToken->public_id,
+            'token' => $token,
+            'expires_at' => $urlLoginToken->expires_at,
+        ];
     }
 }
