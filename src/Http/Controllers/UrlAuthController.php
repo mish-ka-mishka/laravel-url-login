@@ -29,7 +29,7 @@ abstract class UrlAuthController extends Controller
 
     protected function isNeededToRemember(Request $request, Authenticatable $user): bool
     {
-        return true;
+        return false;
     }
 
     protected function redirectAfterAuthenticated(Request $request, Authenticatable $user)
