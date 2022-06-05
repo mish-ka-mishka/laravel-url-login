@@ -12,18 +12,23 @@ use UrlLogin\Models\UrlLoginToken;
 
 abstract class UrlAuthController extends Controller
 {
-    protected const REMEMBER_AFTER_AUTHENTICATION = false;
-
     public function __construct()
     {
         $this->middleware('guest:' . $this->getAuthGuardName())->only(['authenticate']);
     }
 
-    abstract protected function getAuthGuardName(): string;
+    protected function getAuthGuardName(): ?string {
+        return null;
+    }
 
     protected function getAuthGuard(): StatefulGuard
     {
         return Auth::guard($this->getAuthGuardName());
+    }
+
+    protected function isNeededToRemember(Request $request, Authenticatable $user): bool
+    {
+        return true;
     }
 
     protected function redirectAfterAuthenticated(Request $request, Authenticatable $user)
@@ -39,7 +44,7 @@ abstract class UrlAuthController extends Controller
         $urlLoginToken = UrlLoginToken::retrieve($authId, $authToken);
         $user = $urlLoginToken->tokenable;
 
-        $this->getAuthGuard()->login($user, static::REMEMBER_AFTER_AUTHENTICATION);
+        $this->getAuthGuard()->login($user, $this->isNeededToRemember($request, $user));
 
         $urlLoginToken->consume($request);
 
