@@ -17,7 +17,8 @@ abstract class UrlAuthController extends Controller
         $this->middleware('guest:' . $this->getAuthGuardName())->only(['authenticate']);
     }
 
-    protected function getAuthGuardName(): ?string {
+    protected function getAuthGuardName(): ?string
+    {
         return null;
     }
 
