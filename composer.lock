@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27723db18332acfe11ed2e839db4462d",
+    "content-hash": "40e8a50ede38fc15027f03371953b3d2",
     "packages": [
         {
             "name": "brick/math",
@@ -1068,6 +1068,56 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "mkaverin/laravel-tools",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mish-ka-mishka/laravel-tools.git",
+                "reference": "e643e55286cc2dd7ae85c33abc25b8ebe98ca989"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mish-ka-mishka/laravel-tools/zipball/e643e55286cc2dd7ae85c33abc25b8ebe98ca989",
+                "reference": "e643e55286cc2dd7ae85c33abc25b8ebe98ca989",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0|^9.0",
+                "illuminate/database": "^8.0|^9.0",
+                "illuminate/http": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^8.0|^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.23|^7.0",
+                "phpunit/phpunit": "^9.5.10"
+            },
+            "suggest": {
+                "mkaverin/laravel-url-login": "Required for using AuthenticatesViaTelegram trait",
+                "westacks/telebot": "Required for using Telegram tools"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Michael",
+                    "email": "m@kaverin.ml"
+                }
+            ],
+            "description": "This package contains simple tools for your Laravel application.",
+            "homepage": "https://github.com/mish-ka-mishka/laravel-tools",
+            "support": {
+                "issues": "https://github.com/mish-ka-mishka/laravel-tools/issues",
+                "source": "https://github.com/mish-ka-mishka/laravel-tools/tree/🙄.3"
+            },
+            "time": "2022-10-18T20:43:23+00:00"
         },
         {
             "name": "monolog/monolog",

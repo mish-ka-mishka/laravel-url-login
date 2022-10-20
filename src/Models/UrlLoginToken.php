@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use UrlLogin\Traits\HasPublicId;
+use Tools\Traits\HasPublicId;
 
 /**
  * @property int $id

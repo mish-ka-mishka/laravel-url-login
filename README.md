@@ -80,7 +80,7 @@ overriding the `getAuthGuardName()` or `getAuthGuard()` method in your `UrlAuthC
 
 If you would like to provide "remember me" functionality in your application, you may use the
 `isNeededToRemember()` method. This method accepts authentication request and retrieved
-user model so you can determine if the user should be remembered.
+user model, so you can determine if the user should be remembered.
 
 ## Testing
 
