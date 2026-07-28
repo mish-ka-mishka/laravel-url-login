@@ -28,9 +28,9 @@ class UrlLoginToken extends Model
 {
     use HasPublicId;
 
-    protected $dates = [
-        'expires_at',
-        'consumed_at',
+    protected $casts = [
+        'expires_at' => 'datetime',
+        'consumed_at' => 'datetime',
     ];
 
     protected static function booted(): void
